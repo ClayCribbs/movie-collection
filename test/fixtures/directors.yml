@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  award_ids: 1
+  birthday: 2017-03-18 17:14:38
+  description: MyText
+  died: 2017-03-18 17:14:38
+  movie_ids: 1
+  name: MyString
+  photos: MyString
+
+two:
+  award_ids: 1
+  birthday: 2017-03-18 17:14:38
+  description: MyText
+  died: 2017-03-18 17:14:38
+  movie_ids: 1
+  name: MyString
+  photos: MyString
