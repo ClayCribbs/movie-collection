@@ -1,0 +1,37 @@
+.container-fluid
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h1 Movies!
+  .row
+    .col-sm-8.col-sm-offset-2
+      - @movies.each do |movie|
+        = movie.title
+        - movie.directors.each do |director|
+          = director.name
+        = movie.release_date
+        = movie.rating
+        - movie.cast_members.each do |cast_member|
+          = cast_member.name
+        = movie.vote_count
+        = movie.runtime
+        = movie.motion_picture_rated
+        - movie.writers.each do |writer|
+          = writer.name
+        = movie.photos
+        = movie.videos
+        = movie.storyline
+        = movie.official_site
+        = movie.country
+        = movie.language
+        = movie.filming_locations
+        = movie.budget
+        = movie.gross
+        - movie.production_companies.each do |production_company|
+          = production_company.name
+        = link_to 'Show', movie
+        = link_to 'Edit', edit_movie_path(movie)
+        = link_to 'Destroy', movie, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+      %br
+
+      = link_to 'New Movie', new_movie_path

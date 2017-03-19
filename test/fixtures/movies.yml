@@ -1,11 +1,45 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  title: MyString
+  director: one
+  release_date: 2017-03-18 18:58:10
+  rating: 9.99
+  cast: one
+  awards: 1
+  vote_count: 1
+  runtime: 1
+  motion_picture_rated: MyString
+  writers: one
+  photos: MyString
+  videos: MyString
+  storyline: MyText
+  official_site: MyString
+  country: MyString
+  language: MyString
+  filming_locations: MyString
+  budget: 1
+  gross: 1
+  production_company: one
+
+two:
+  title: MyString
+  director: two
+  release_date: 2017-03-18 18:58:10
+  rating: 9.99
+  cast: two
+  awards: 1
+  vote_count: 1
+  runtime: 1
+  motion_picture_rated: MyString
+  writers: two
+  photos: MyString
+  videos: MyString
+  storyline: MyText
+  official_site: MyString
+  country: MyString
+  language: MyString
+  filming_locations: MyString
+  budget: 1
+  gross: 1
+  production_company: two

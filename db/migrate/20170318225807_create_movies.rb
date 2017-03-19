@@ -1,12 +1,6 @@
 class CreateMovies < ActiveRecord::Migration[5.0]
   def change
     create_table :movies do |t|
-      t.references :cast_members,       foreign_key: true
-      t.references :categories,         foreign_key: true
-      t.references :directors,          foreign_key: true
-      t.references :production_company, foreign_key: true
-      t.references :writers,            foreign_key: true
-      t.integer    :awards,          foreign_key: true
       t.integer    :budget
       t.string     :country
       t.string     :filming_locations

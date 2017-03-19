@@ -10,60 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318214759) do
+ActiveRecord::Schema.define(version: 20170319202548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "awards", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "cast_member_movies", force: :cascade do |t|
+    t.integer  "cast_member_id"
+    t.integer  "movie_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["cast_member_id"], name: "index_cast_member_movies_on_cast_member_id", using: :btree
+    t.index ["movie_id"], name: "index_cast_member_movies_on_movie_id", using: :btree
   end
 
   create_table "cast_members", force: :cascade do |t|
-    t.integer  "award_ids"
     t.datetime "birthday"
     t.text     "description"
     t.datetime "died"
-    t.integer  "movie_ids"
     t.string   "name"
     t.string   "photos"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["award_ids"], name: "index_cast_members_on_award_ids", using: :btree
-    t.index ["movie_ids"], name: "index_cast_members_on_movie_ids", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
-    t.integer  "movie_ids"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["movie_ids"], name: "index_categories_on_movie_ids", using: :btree
+  end
+
+  create_table "category_movies", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "movie_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["category_id"], name: "index_category_movies_on_category_id", using: :btree
+    t.index ["movie_id"], name: "index_category_movies_on_movie_id", using: :btree
+  end
+
+  create_table "director_movies", force: :cascade do |t|
+    t.integer  "director_id"
+    t.integer  "movie_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["director_id"], name: "index_director_movies_on_director_id", using: :btree
+    t.index ["movie_id"], name: "index_director_movies_on_movie_id", using: :btree
   end
 
   create_table "directors", force: :cascade do |t|
-    t.integer  "award_ids"
     t.datetime "birthday"
     t.text     "description"
     t.datetime "died"
-    t.integer  "movie_ids"
     t.string   "name"
     t.string   "photos"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["award_ids"], name: "index_directors_on_award_ids", using: :btree
-    t.index ["movie_ids"], name: "index_directors_on_movie_ids", using: :btree
+  end
+
+  create_table "movie_production_companies", force: :cascade do |t|
+    t.integer  "movie_id"
+    t.integer  "production_company_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["movie_id"], name: "index_movie_production_companies_on_movie_id", using: :btree
+    t.index ["production_company_id"], name: "index_movie_production_companies_on_production_company_id", using: :btree
+  end
+
+  create_table "movie_writers", force: :cascade do |t|
+    t.integer  "movie_id"
+    t.integer  "writer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_writers_on_movie_id", using: :btree
+    t.index ["writer_id"], name: "index_movie_writers_on_writer_id", using: :btree
   end
 
   create_table "movies", force: :cascade do |t|
-    t.integer  "cast_members_id"
-    t.integer  "categories_id"
-    t.integer  "directors_id"
-    t.integer  "production_company_id"
-    t.integer  "writers_id"
-    t.integer  "awards"
     t.integer  "budget"
     t.string   "country"
     t.string   "filming_locations"
@@ -79,17 +102,11 @@ ActiveRecord::Schema.define(version: 20170318214759) do
     t.string   "title"
     t.string   "videos"
     t.integer  "vote_count"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.index ["cast_members_id"], name: "index_movies_on_cast_members_id", using: :btree
-    t.index ["categories_id"], name: "index_movies_on_categories_id", using: :btree
-    t.index ["directors_id"], name: "index_movies_on_directors_id", using: :btree
-    t.index ["production_company_id"], name: "index_movies_on_production_company_id", using: :btree
-    t.index ["writers_id"], name: "index_movies_on_writers_id", using: :btree
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "production_companies", force: :cascade do |t|
-    t.integer  "movie_ids"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,22 +130,23 @@ ActiveRecord::Schema.define(version: 20170318214759) do
   end
 
   create_table "writers", force: :cascade do |t|
-    t.integer  "award_ids"
     t.datetime "birthday"
     t.text     "description"
     t.datetime "died"
-    t.integer  "movie_ids"
     t.string   "name"
     t.string   "photos"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["award_ids"], name: "index_writers_on_award_ids", using: :btree
-    t.index ["movie_ids"], name: "index_writers_on_movie_ids", using: :btree
   end
 
-  add_foreign_key "movies", "cast_members", column: "cast_members_id"
-  add_foreign_key "movies", "categories", column: "categories_id"
-  add_foreign_key "movies", "directors", column: "directors_id"
-  add_foreign_key "movies", "production_companies"
-  add_foreign_key "movies", "writers", column: "writers_id"
+  add_foreign_key "cast_member_movies", "cast_members"
+  add_foreign_key "cast_member_movies", "movies"
+  add_foreign_key "category_movies", "categories"
+  add_foreign_key "category_movies", "movies"
+  add_foreign_key "director_movies", "directors"
+  add_foreign_key "director_movies", "movies"
+  add_foreign_key "movie_production_companies", "movies"
+  add_foreign_key "movie_production_companies", "production_companies"
+  add_foreign_key "movie_writers", "movies"
+  add_foreign_key "movie_writers", "writers"
 end

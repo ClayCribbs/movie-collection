@@ -1,0 +1,43 @@
+= simple_form_for(@movie) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .form-group
+      = f.input :title, class: 'form-control'
+    .form-group
+      = f.association :directors, collection: Director.all, prompt: 'Director', multiple: true, class: 'form-control'
+    .form-group
+      = f.input :release_date, class: 'form-control'
+    .form-group
+      = f.input :rating, class: 'form-control'
+    .form-group
+      = f.association :cast_members, collection: CastMember.all, prompt: 'Cast', class: 'form-control'
+    .form-group
+      = f.input :vote_count, class: 'form-control'
+    .form-group
+      = f.input :runtime, class: 'form-control'
+    .form-group
+      = f.input :motion_picture_rated, class: 'form-control'
+    .form-group
+      = f.input :photos, class: 'form-control'
+    .form-group
+      = f.input :videos, class: 'form-control'
+    .form-group
+      = f.input :storyline, class: 'form-control'
+    .form-group
+      = f.input :official_site, class: 'form-control'
+    .form-group
+      = f.input :language, class: 'form-control'
+    .form-group
+      = f.input :filming_locations, class: 'form-control'
+    .form-group
+      = f.input :budget, class: 'form-control'
+    .form-group
+      = f.input :gross, class: 'form-control'
+    .form-group
+      = f.association :production_companies, collection: ProductionCompany.all, prompt: 'Production Company', class: 'form-control'
+    .form-group
+      = f.association :writers, collection: Writer.all, prompt: 'Writers', class: 'form-control'
+  
+  .form-actions
+    = f.button :submit

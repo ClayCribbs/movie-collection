@@ -6,13 +6,87 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+CastMember.create([
+  {
+    description: 'A Sith leader',
+    name: 'Darth Vader'
+  }
+])
+
+Director.create([
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Darth Vader',
+  },
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Luke Skywalker',
+  },
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Han Solo',
+  },  
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Chewbacca',
+  }
+])
+
+Writer.create([
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Darth Vader',
+  },
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Luke Skywalker',
+  },
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Han Solo',
+  },  
+  {
+    birthday: Time.now - 10.years,
+    description: 'A fine cast member',
+    died: Time.now - 1.day,
+    name: 'Chewbacca',
+  }
+])
+
+Category.create([
+	{
+	  name: 'Horror'
+	},
+    {
+      name: 'Drama'
+    }
+])
+
+ProductionCompany.create([
+	{
+	  name: 'Warner Brothers'
+	},
+    {
+      name: 'Disney'
+    }
+])
+
 Movie.create([
-  { cast_members_id: [],
-    categories_id: [],
-    directors_id: [],
-    production_company_id: [],
-    writers_id: [],
-    awards: [],
+  {
     budget: 20000000,
     country: 'USA',
     filming_locations: 'Hollywood, Ca',
@@ -20,21 +94,13 @@ Movie.create([
     language: 'English',
     motion_picture_rated: 'R',
     official_site: 'http://www.themovie.com',
-    photos: [],
     rating: 8.1,
     release_date: Time.now - 10.years,
     runtime: 2.hours,
     storyline: 'A movie about things.',
     title: 'The Movie part 1',
-    videos: [],
-    vote_count: 1403,
-  },
-  { cast_members_id: [],
-    categories_id: [],
-    directors_id: [],
-    production_company_id: [],
-    writers_id: [],
-    awards: [],
+    vote_count: 1403
+  }, {
     budget: 10000000,
     country: 'USA',
     filming_locations: 'Hollywood, Ca',
@@ -42,21 +108,13 @@ Movie.create([
     language: 'English',
     motion_picture_rated: 'R',
     official_site: 'http://www.themovie.com',
-    photos: [],
     rating: 7.8,
     release_date: Time.now - 10.years,
     runtime: 2.hours,
     storyline: 'A movie about things.',
     title: 'The Movie part 2',
-    videos: [],
-    vote_count: 1403,
-  },
-  { cast_members_id: [],
-    categories_id: [],
-    directors_id: [],
-    production_company_id: [],
-    writers_id: [],
-    awards: [],
+    vote_count: 1403
+  }, {
     budget: 10000000,
     country: 'USA',
     filming_locations: 'Hollywood, Ca',
@@ -64,21 +122,13 @@ Movie.create([
     language: 'English',
     motion_picture_rated: 'R',
     official_site: 'http://www.themovie.com',
-    photos: [],
     rating: 5.6,
     release_date: Time.now - 10.years,
     runtime: 2.hours,
     storyline: 'A movie about things.',
     title: 'The Movie part 3',
-    videos: [],
-    vote_count: 1403,
-  },
-  { cast_members_id: [],
-    categories_id: [],
-    directors_id: [],
-    production_company_id: [],
-    writers_id: [],
-    awards: [],
+    vote_count: 1403
+  }, {
     budget: 10000000,
     country: 'USA',
     filming_locations: 'Hollywood, Ca',
@@ -86,13 +136,11 @@ Movie.create([
     language: 'English',
     motion_picture_rated: 'R',
     official_site: 'http://www.themovie.com',
-    photos: [],
     rating: 3.4,
     release_date: Time.now - 10.years,
     runtime: 2.hours,
     storyline: 'A movie about things.',
     title: 'The Movie part 4',
-    videos: [],
-    vote_count: 1403,
+    vote_count: 1403
   }
 ])
