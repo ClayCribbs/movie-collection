@@ -19,7 +19,7 @@
     .form-group
       = f.input :motion_picture_rated, class: 'form-control'
     .form-group
-      = f.input :photos, class: 'form-control'
+      = f.file_field :photos, multiple: true, class: 'form-control'
     .form-group
       = f.input :videos, class: 'form-control'
     .form-group
