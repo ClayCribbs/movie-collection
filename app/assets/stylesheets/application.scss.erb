@@ -16,7 +16,34 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html {
+  height: 100%;
+  body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 0px;
+    min-height: 100%;
+  }
+}
 
 .movie-index-wrapper {
 	margin-top: 150px;
+}
+
+.image-fit {
+	width: 100%;
+	height: auto;
+}
+
+.tree-wrapper {
+	background-color: darkgrey;
+	max-width: 100%;
+  max-height:100% !important;
+  padding-top: 40px;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.movie-img-wrapper {
+  min-height: 800px;
 }

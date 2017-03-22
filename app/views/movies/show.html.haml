@@ -29,7 +29,8 @@
   = @movie.writers
 %p
   %b Photos:
-  = @movie.photos
+  - @movie.photos.each do |photo|
+    = image_tag photo
 %p
   %b Videos:
   = @movie.videos

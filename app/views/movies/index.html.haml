@@ -1,21 +1,43 @@
 .container-fluid
   .row
-    .col-sm-10.col-sm-offset-1
-      .well.movie-index-wrapper
-        .row
-          .col-sm-6.col-sm-offset-3.text-center
-            %h1 Movies!
-            %br
-        .row
-          .col-sm-10.col-sm-offset-1
-            %table.table
-              %tbody
-                - @movies.each do |movie|
-                  %tr
-                    %td= movie.title + " (#{movie.release_date.strftime('%Y')})"
-                    %td= movie.rating
-                    %td= movie.runtime
-                    %td= movie.motion_picture_rated
-                    %td= link_to 'Show', movie
+    .col-sm-3.text-center.tree-wrapper
+      %table.table
+        %tbody
+          - @movies.each do |movie|
+            %tr
+              %td= link_to movie.title, movie
+      = link_to 'New Movie', new_movie_path, class: 'btn btn-warning'
 
-            = link_to 'New Movie', new_movie_path, class: 'btn btn-warning'
+    .col-sm-7
+      .row
+        .col-sm-10.col-sm-offset-2.text-center.movie-img-wrapper
+          #carouselMovieNav.carousel.slide{"data-ride" => "carousel"}
+            %ol.carousel-indicators
+              - @movies.each_with_index do |movie, i|
+                - if i == 1
+                  %li.active{"data-slide-to" => "#{i}", "data-target" => "#carouselMovieNav"}
+                - else
+                  %li{"data-slide-to" => "#{i}", "data-target" => "#carouselMovieNav"}
+            .carousel-inner{:role => "listbox"}
+              - @movies.each_with_index do |movie, i|
+                - if i == 1
+                  .item.active
+                    - if movie.photos.present?
+                      = image_tag movie.photos[0], class: 'image-fit'
+                    - else
+                      No Image Preview
+                - else
+                  .item
+                    - if movie.photos.present?
+                      = image_tag movie.photos[0], class: 'image-fit'
+                    - else
+                      No Image Preview
+      .row
+        .col-sm-10.col-sm-offset-2.text-center
+          %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselMovieNav", :role => "button"}
+            %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+            %span.glyphicon.glyphicon-chevron-left
+          %a.carousel-control-next{"data-slide" => "next", :href => "#carouselMovieNav", :role => "button"}
+            %span.carousel-control-next-icon{"aria-hidden" => "true"}
+            %span.glyphicon.glyphicon-chevron-right
+
