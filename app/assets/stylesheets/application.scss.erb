@@ -15,6 +15,11 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+html, body, input, button, select, textarea, optgroup, option, form, fieldset, table, i, b, p, a, li, tr, td, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
 
 html {
   body {
@@ -22,27 +27,99 @@ html {
     margin: 0;
     padding-bottom: 0px;
     min-height: 100%;
+    background-color: #faf9fb;
   }
 }
 
+.navbar {
+  height: 40px;
+  border-bottom: solid 1px #22264b !important;
+}
+
 .movie-index-wrapper {
-	padding-top: 50px;
 }
 
 .image-fit {
 	width: 100%;
 	height: auto;
+  vertical-align: middle;
+}
+
+.btn-nav {
+  background-color: #e6cf8b;
+  height: 30px;
+  margin-top: 9px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.movie-sidebar-wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #e9ece5;
+  border: solid 4px #b3c2bf;
+  color: #3b3a36;
+  border-radius: 25px;
+}
+
+.login-wrapper {
+  margin-top: 100px;
+}
+
+.login-form {
+  color: #22264b;
+  border: solid 4px #22264b;
+  background-color: #e8edf3;
+  border-radius: 20px;
+  padding-left: 75px;
+  padding-right: 75px;
+  padding-bottom: 25px;
 }
 
 .tree-wrapper {
-	background-color: darkgrey;
 	max-width: 100%;
   max-height:100% !important;
-  padding-top: 50px;
+  background: #e8edf3;
+  border-right: solid 1px #22264b !important;
+  padding-left: 25px;
+  padding-right: 25px;
   padding-bottom: 100%;
+  margin-top: -20px;
   overflow: hidden;
+  a {
+    text-decoration: none;
+    color: #3b3a36;
+  }
 }
 
 .movie-container {
   padding-top: 15px;
+  height:200px;
+}
+
+.slide-in {
+  position: fixed;
+  bottom: 0;
+}
+
+.img-preview {
+  height: 120px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.slider {
+  height: 155px;
+  background-color: #e9ece5;
+  margin-left: -15px;
+  margin-right: 0px;
+  width: 80%;
+  padding-right: 20px;
+  border-top: solid 1px #22264b;
+  z-index: 1;
+}
+
+.preview-wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

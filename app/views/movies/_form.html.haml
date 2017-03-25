@@ -1,11 +1,7 @@
 = simple_form_for(@movie) do |f|
   = f.error_notification
-  
-  .row
-    .col-sm-6.col-sm-offset-3
-      .well
-        .form-inputs
-          .form-group
-            = f.input :title, class: 'form-control'
-        .form-actions
-          = f.button :submit
+  .form-inputs
+    .form-group
+      = f.input :title, class: 'form-control'
+  .form-actions
+    = f.button :submit

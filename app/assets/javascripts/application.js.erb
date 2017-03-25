@@ -16,4 +16,8 @@
 //= require turbolinks
 //= require_tree .
 
-$('#carouselMovieNav').carousel();
+$(document).on('turbolinks:load', function() {
+  if (gon.query) {
+    document.getElementById('movie_title').value = gon.query;
+  };
+})

@@ -1,16 +1,14 @@
 .container-fluid
-  .row
-    .col-sm-6.col-sm-offset-3
-      %h1 New movie
 
-      = render 'form'
+  %h1 New movie
 
-      - if params[:search_title].present? && @results.response.to_s == 'True'
-        .row
-          .col-sm-12
-            Sorry no results found...
-            Did you mean?
-            - @results.each do |result|
-              = link_to result.title, movies_path(title: result.title), method: :post
+  = render 'form'
 
-      = link_to 'Back', movies_path
+  - if params[:search_title].present?
+    .row
+      .col-sm-12
+        Sorry no results found...
+        - @results.each do |result|
+          = link_to result.title, new_movie_path(query: result.title) unless result.kind_of?(Array)
+
+  = link_to 'Back', movies_path

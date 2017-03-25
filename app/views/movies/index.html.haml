@@ -1,60 +1,42 @@
 .container-fluid
   .row
-    .col-sm-3.text-center.tree-wrapper
-      %h2 Movie Index
+    .col-sm-3.tree-wrapper
+      %h2.text-center Movie Index
       %br
       %table.table
         %tbody
           - @movies.each do |movie|
             %tr
-              %td= link_to movie.title, movie
-      = link_to 'New Movie', new_movie_path, class: 'btn btn-warning'
-    %h1.text-center My Movies
+              %td= link_to movie.title.titleize, movies_path(selected_movie: movie.id)
+
+    - if params[:selected_movie].present?
+      .col-sm-9
+        = render 'movie_preview', locals: {id: params[:selected_movie]}
     .col-sm-8.movie-index-wrapper
       .row
-      -@movies.each_with_index do |movie, i|
-        .col-sm-2.col-sm-offset-1.movie-container
-          .row
-            .col-sm-12
-              - if movie.poster.present?
-                = image_tag movie.poster, class: 'image-fit'
-              - else
-                No Image Preview
-            .col-sm-12
-              %b= movie.title
-        - if i != 0 && (i + 1) % 4 == 0
-          .row
+        - @movies.each_with_index do |movie, i|
+          .col-sm-2.movie-container
+            .row
+              = link_to movies_path(selected_movie: movie.id) do
+                .col-sm-12
+                  - if movie.poster.present?
+                    = image_tag movie.poster, class: 'image-fit'
+                  - else
+                    No Image Preview
+                .col-sm-12
+                  %b= movie.title.titleize
+          - if i != 0 && (i + 1) % 6 == 0
+            .row
 
-/    .col-sm-7
-/      .row
-/        .col-sm-10.col-sm-offset-2.text-center.movie-img-wrapper
-/          #carouselMovieNav.carousel.slide{"data-ride" => "carousel"}
-/            %ol.carousel-indicators
-/              - @movies.each_with_index do |movie, i|
-/                - if i == 1
-/                  %li.active{"data-slide-to" => "#{i}", "data-target" => "#carouselMovieNav"}
-/                - else
-/                  %li{"data-slide-to" => "#{i}", "data-target" => "#carouselMovieNav"}
-/            .carousel-inner{:role => "listbox"}
-/              - @movies.each_with_index do |movie, i|
-/                - if i == 1
-/                  .item.active
-/                    - if movie.poster.present?
-/                      = image_tag movie.poster, class: 'image-fit'
-/                    - else
-/                      No Image Preview
-/                - else
-/                  .item
-/                    - if movie.poster.present?
-/                      = image_tag movie.poster, class: 'image-fit'
-/                    - else
-/                      No Image Preview
-/      .row
-/        .col-sm-10.col-sm-offset-2.text-center
-/          %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselMovieNav", :role => "button"}
-/            %span.carousel-control-prev-icon{"aria-hidden" => "true"}
-/            %span.glyphicon.glyphicon-chevron-left
-/          %a.carousel-control-next{"data-slide" => "next", :href => "#carouselMovieNav", :role => "button"}
-/            %span.carousel-control-next-icon{"aria-hidden" => "true"}
-/            %span.glyphicon.glyphicon-chevron-right
-
+#newMovieModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newMovieModal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5#newMovieModal.modal-title Modal title
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      .modal-body
+        Ooops... something went wrong.
+      .modal-footer
+        %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
+        %button.btn.btn-primary{:type => "button"} Save changes

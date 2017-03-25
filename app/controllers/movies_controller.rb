@@ -1,19 +1,25 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_movie, only: [:show, :edit, :update, :get_movie_attributes]
 
   # GET /movies
   # GET /movies.json
   def index
     @movies = Movie.all.order(rating: :desc)
+    @movie  = Movie.find(params[:selected_movie]) if params[:selected_movie]
   end
 
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @movies = Movie.all.order(rating: :desc)
   end
 
   # GET /movies/new
   def new
+    if params[:query].present?
+      gon.query = params[:query]
+    end
     @movie = Movie.new
     @results = OMDB.search(params[:search_title]) if params[:search_title]
   end
@@ -55,7 +61,7 @@ class MoviesController < ApplicationController
         movie.poster       = @omdb_movie.poster
         movie.storyline    = @omdb_movie.plot
         movie.save
-        redirect_to @movie, notice: 'Movie was successfully created.' 
+        redirect_to movies_path, notice: 'Movie was successfully created.' 
       else
         movie.delete
         redirect_to new_movie_path(search_title: title), errors: 'Could not be created'
