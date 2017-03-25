@@ -5,4 +5,12 @@
 
       = render 'form'
 
+      - if params[:search_title].present? && @results.response.to_s == 'True'
+        .row
+          .col-sm-12
+            Sorry no results found...
+            Did you mean?
+            - @results.each do |result|
+              = link_to result.title, movies_path(title: result.title), method: :post
+
       = link_to 'Back', movies_path

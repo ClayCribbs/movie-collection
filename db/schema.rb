@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20170319202548) do
     t.string   "language"
     t.string   "motion_picture_rated"
     t.string   "official_site"
-    t.string   "photos"
+    t.string   "poster"
     t.decimal  "rating"
     t.datetime "release_date"
     t.integer  "runtime"

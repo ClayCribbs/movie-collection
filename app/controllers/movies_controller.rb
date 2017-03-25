@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie, only: [:show, :edit, :update, :get_movie_attributes]
 
   # GET /movies
   # GET /movies.json
@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
   # GET /movies/new
   def new
     @movie = Movie.new
+    @results = OMDB.search(params[:search_title]) if params[:search_title]
   end
 
   # GET /movies/1/edit
@@ -25,15 +26,7 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
-    respond_to do |format|
-      if @movie.save
-        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
-        format.json { render :show, status: :created, location: @movie }
-      else
-        format.html { render :new }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
-      end
-    end
+    get_movie_attributes(@movie)
   end
 
   # PATCH/PUT /movies/1
@@ -50,17 +43,25 @@ class MoviesController < ApplicationController
     end
   end
 
-  # DELETE /movies/1
-  # DELETE /movies/1.json
-  def destroy
-    @movie.destroy
-    respond_to do |format|
-      format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
+
+    def get_movie_attributes(movie)
+      title = movie.title
+      @omdb_movie = OMDB.title(title)
+      if @omdb_movie.response.to_s == 'True' && @omdb_movie.poster.length > 10
+        movie.runtime      = @omdb_movie.runtime
+        movie.rating       = @omdb_movie.imdb_rating
+        movie.vote_count   = @omdb_movie.imdb_votes
+        movie.poster       = @omdb_movie.poster
+        movie.storyline    = @omdb_movie.plot
+        movie.save
+        redirect_to @movie, notice: 'Movie was successfully created.' 
+      else
+        movie.delete
+        redirect_to new_movie_path(search_title: title), errors: 'Could not be created'
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
@@ -68,6 +69,6 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:title, :release_date, :rating, :vote_count, :runtime, :motion_picture_rated, :storyline, :official_site, :country, :language, :filming_locations, :budget, :gross, photos: [], videos: [], production_company_ids: [], director_ids: [], cast_member_ids: [], writer_ids: [])
+      params.require(:movie).permit(:title, :release_date, :rating, :vote_count, :runtime, :motion_picture_rated, :storyline, :official_site, :country, :language, :filming_locations, :budget, :gross, :poster, videos: [], production_company_ids: [], director_ids: [], cast_member_ids: [], writer_ids: [])
     end
 end

@@ -85,62 +85,62 @@ ProductionCompany.create([
     }
 ])
 
-Movie.create([
-  {
-    budget: 20000000,
-    country: 'USA',
-    filming_locations: 'Hollywood, Ca',
-    gross: 100000000,
-    language: 'English',
-    motion_picture_rated: 'R',
-    official_site: 'http://www.themovie.com',
-    rating: 8.1,
-    release_date: Time.now - 10.years,
-    runtime: 2.hours,
-    storyline: 'A movie about things.',
-    title: 'The Movie part 1',
-    vote_count: 1403
-  }, {
-    budget: 10000000,
-    country: 'USA',
-    filming_locations: 'Hollywood, Ca',
-    gross: 50000000,
-    language: 'English',
-    motion_picture_rated: 'R',
-    official_site: 'http://www.themovie.com',
-    rating: 7.8,
-    release_date: Time.now - 10.years,
-    runtime: 2.hours,
-    storyline: 'A movie about things.',
-    title: 'The Movie part 2',
-    vote_count: 1403
-  }, {
-    budget: 10000000,
-    country: 'USA',
-    filming_locations: 'Hollywood, Ca',
-    gross: 50000000,
-    language: 'English',
-    motion_picture_rated: 'R',
-    official_site: 'http://www.themovie.com',
-    rating: 5.6,
-    release_date: Time.now - 10.years,
-    runtime: 2.hours,
-    storyline: 'A movie about things.',
-    title: 'The Movie part 3',
-    vote_count: 1403
-  }, {
-    budget: 10000000,
-    country: 'USA',
-    filming_locations: 'Hollywood, Ca',
-    gross: 50000000,
-    language: 'English',
-    motion_picture_rated: 'R',
-    official_site: 'http://www.themovie.com',
-    rating: 3.4,
-    release_date: Time.now - 10.years,
-    runtime: 2.hours,
-    storyline: 'A movie about things.',
-    title: 'The Movie part 4',
-    vote_count: 1403
-  }
-])
+#Movie.create([
+#  {
+#    budget: 20000000,
+#    country: 'USA',
+#    filming_locations: 'Hollywood, Ca',
+#    gross: 100000000,
+#    language: 'English',
+#    motion_picture_rated: 'R',
+#    official_site: 'http://www.themovie.com',
+#    rating: 8.1,
+#    release_date: Time.now - 10.years,
+#    runtime: 2.hours,
+#    storyline: 'A movie about things.',
+#    title: 'The Movie part 1',
+#    vote_count: 1403
+#  }, {
+#    budget: 10000000,
+#    country: 'USA',
+#    filming_locations: 'Hollywood, Ca',
+#    gross: 50000000,
+#    language: 'English',
+#    motion_picture_rated: 'R',
+#    official_site: 'http://www.themovie.com',
+#    rating: 7.8,
+#    release_date: Time.now - 10.years,
+#    runtime: 2.hours,
+#    storyline: 'A movie about things.',
+#    title: 'The Movie part 2',
+#    vote_count: 1403
+#  }, {
+#    budget: 10000000,
+#    country: 'USA',
+#    filming_locations: 'Hollywood, Ca',
+#    gross: 50000000,
+#    language: 'English',
+#    motion_picture_rated: 'R',
+#    official_site: 'http://www.themovie.com',
+#    rating: 5.6,
+#    release_date: Time.now - 10.years,
+#    runtime: 2.hours,
+#    storyline: 'A movie about things.',
+#    title: 'The Movie part 3',
+#    vote_count: 1403
+#  }, {
+#    budget: 10000000,
+#    country: 'USA',
+#    filming_locations: 'Hollywood, Ca',
+#    gross: 50000000,
+#    language: 'English',
+#    motion_picture_rated: 'R',
+#    official_site: 'http://www.themovie.com',
+#    rating: 3.4,
+#    release_date: Time.now - 10.years,
+#    runtime: 2.hours,
+#    storyline: 'A movie about things.',
+#    title: 'The Movie part 4',
+#    vote_count: 1403
+#  }
+#])
