@@ -14,6 +14,9 @@ class MoviesController < ApplicationController
 
   # GET /movies/new
   def new
+    if params[:query].present?
+      gon.query = params[:query]
+    end
     @movie = Movie.new
     @results = OMDB.search(params[:search_title]) if params[:search_title]
   end
