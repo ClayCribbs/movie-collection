@@ -1,10 +1,16 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_movie, only: [:show, :edit, :update, :get_movie_attributes]
 
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all.order(rating: :desc)
+    if current_user.collection.present?
+      @movies = current_user.collection.movies
+    else
+      Collection.new(user_id: current_user.id)
+      redirect_to new_movie_path, notice: 'Get Started By Adding A Movie!'
+    end
   end
 
   # GET /movies/1
@@ -17,7 +23,7 @@ class MoviesController < ApplicationController
     if params[:query].present?
       gon.query = params[:query]
     end
-    @movie = Movie.new
+    @movie = Movie.new()
     @results = OMDB.search(params[:search_title]) if params[:search_title]
   end
 
@@ -29,6 +35,7 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
+    Collection.where(user_id: current_user.id)
     get_movie_attributes(@movie)
   end
 

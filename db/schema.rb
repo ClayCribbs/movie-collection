@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319202548) do
+ActiveRecord::Schema.define(version: 20170327231923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20170319202548) do
     t.datetime "updated_at",  null: false
     t.index ["category_id"], name: "index_category_movies_on_category_id", using: :btree
     t.index ["movie_id"], name: "index_category_movies_on_movie_id", using: :btree
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_collections_on_movie_id", using: :btree
+    t.index ["user_id"], name: "index_collections_on_user_id", using: :btree
   end
 
   create_table "director_movies", force: :cascade do |t|
@@ -143,6 +152,8 @@ ActiveRecord::Schema.define(version: 20170319202548) do
   add_foreign_key "cast_member_movies", "movies"
   add_foreign_key "category_movies", "categories"
   add_foreign_key "category_movies", "movies"
+  add_foreign_key "collections", "movies"
+  add_foreign_key "collections", "users"
   add_foreign_key "director_movies", "directors"
   add_foreign_key "director_movies", "movies"
   add_foreign_key "movie_production_companies", "movies"

@@ -16,6 +16,9 @@ class Movie < ApplicationRecord
   has_many :movie_writer
   has_many :writers, through: :movie_writer, source: :writer
 
+  belongs_to :collection
+  has_many :movies, through: :collection, source: :movie
+
   mount_uploaders :photos, PhotoUploader
   serialize :photos
 end
