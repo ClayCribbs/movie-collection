@@ -85,10 +85,11 @@ class MoviesController < ApplicationController
         movie.language     = @omdb_movie.language
         movie.motion_picture_rated = @omdb_movie.rated
         movie.country      = @omdb_movie.country
+        movie.title        = @omdb_movie.title
         movie.release_date = ("1/1/#{@omdb_movie.year}").to_date
-        movie.directors << Director.find_or_create_by(name: @omdb_movie.director)
-        movie.writers << Writer.find_or_create_by(name: @omdb_movie.writer)
-        movie.categories << Category.find_or_create_by(name: @omdb_movie.genre)
+        movie.directors    << Director.find_or_create_by(name: @omdb_movie.director)
+        movie.writers      << Writer.find_or_create_by(name: @omdb_movie.writer)
+        movie.categories   << Category.find_or_create_by(name: @omdb_movie.genre)
         @omdb_movie.actors.split(', ').each do |actor|
           movie.cast_members << CastMember.find_or_create_by(name: actor)
         end
