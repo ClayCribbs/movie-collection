@@ -1,0 +1,5 @@
+= simple_form_for(@collection) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, label: false, placeholder: 'Create A New Collection'

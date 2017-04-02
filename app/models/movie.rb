@@ -11,10 +11,11 @@ class Movie < ApplicationRecord
   has_many :movie_production_company
   has_many :production_companies, through: :movie_production_company, source: :production_company
 
-  has_many :users
-
   has_many :movie_writer
   has_many :writers, through: :movie_writer, source: :writer
+
+  has_many :collection_movie
+  has_many :collections, through: :collection_movie, source: :collection
 
   mount_uploaders :photos, PhotoUploader
   serialize :photos

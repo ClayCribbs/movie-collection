@@ -2,7 +2,22 @@
   .row.preview-wrapper
     .col-sm-2.col-sm-offset-1
       = image_tag @movie.poster, class: 'img-preview'
+
     .col-sm-7
-      %h4= @movie.title.titleize
+      .pull-right
+        Rated:
+        = @movie.rating
+      %h4= "#{@movie.title.titleize} (#{@movie.release_date.year})"
       %h5= @movie.storyline
+      - if params[:collection_sort]
+        = link_to "Remove from Collection", manage_collection_movie_path(@movie, type: "Remove", collection: Collection.find(params[:collection_sort])), method: :put
+      - else
+        .dropup
+          %button#dropdownMenu1.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Add to..
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+            - Collection.where(user_id: current_user.id).each do |c|
+              = link_to c.name, manage_collection_movie_path(@movie, type: "Add", collection: Collection.find(c.id)), method: :put unless c.movies.find_by(id: @movie.id)
+         
 

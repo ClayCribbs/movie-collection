@@ -1,32 +1,52 @@
 .container-fluid
   .row
     .col-sm-3.tree-wrapper
-      %h2.text-center Movie Index
+      %h2.text-center Collections
+      - if params[:collection_sort]
+        - if params[:selected_movie]
+          = link_to 'Back to All Movies', movies_path(selected_movie: params[:selected_movie])
+        - else
+          = link_to 'Back to All Movies', movies_path
       %br
+      = render 'collections/form', locals: {collection: @collection}
       %table.table
         %tbody
-          - @movies.each do |movie|
+          - @collections.each do |collection|
             %tr
-              %td= link_to movie.title.titleize, movies_path(selected_movie: movie.id)
-
-    - if params[:selected_movie].present?
-      .col-sm-9
-        = render 'movie_preview', locals: {id: params[:selected_movie]}
-    .col-sm-8.movie-index-wrapper
-      .row
-        - @movies.each_with_index do |movie, i|
-          .col-sm-2.movie-container
-            .row
-              = link_to movies_path(selected_movie: movie.id) do
-                .col-sm-12
-                  - if movie.poster.present?
-                    = image_tag movie.poster, class: 'image-fit'
-                  - else
-                    No Image Preview
-                .col-sm-12
-                  %b= movie.title.titleize
-          - if i != 0 && (i + 1) % 6 == 0
-            .row
+              %td= link_to collection.name.titleize, movies_path(collection_sort: collection)
+    .col-sm-9
+      - if params[:collection_sort]
+        %h3= Collection.find(params[:collection_sort]).name.titleize
+      - if params[:selected_movie].present?
+        - if @collection.movies.present?
+          = render 'movie_preview', locals: {id: params[:selected_movie], collection_sort: params[:collection_sort]}
+        - else
+          = render 'movie_preview', locals: {id: params[:selected_movie]}
+      .movie-index-wrapper
+        .row
+          - @movies.each_with_index do |movie, i|
+            .col-sm-2.movie-container
+              .row
+                - if params[:collection_sort]
+                  = link_to movies_path(selected_movie: movie.id, collection_sort: params[:collection_sort]) do
+                    .col-sm-12
+                      - if movie.poster.present?
+                        = image_tag movie.poster, class: 'image-fit'
+                      - else
+                        No Image Preview
+                    .col-sm-12
+                      %b= movie.title.titleize
+                - else
+                  = link_to movies_path(selected_movie: movie.id) do
+                    .col-sm-12
+                      - if movie.poster.present?
+                        = image_tag movie.poster, class: 'image-fit'
+                      - else
+                        No Image Preview
+                    .col-sm-12
+                      %b= movie.title.titleize
+            - if i != 0 && (i + 1) % 6 == 0
+              .row
 
 #newMovieModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newMovieModal", :role => "dialog", :tabindex => "-1"}
   .modal-dialog{:role => "document"}

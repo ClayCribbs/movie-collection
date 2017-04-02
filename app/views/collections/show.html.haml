@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @collection.user
+%p
+  %b Movie:
+  - @collection.movies.each do |movie|
+    = movie.title
+%p
+  %b Name:
+  = @collection.name
+
+= link_to 'Edit', edit_collection_path(@collection)
+\|
+= link_to 'Back', collections_path
