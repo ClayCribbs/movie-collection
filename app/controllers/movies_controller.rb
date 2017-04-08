@@ -9,6 +9,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all.order(rating: :desc)
     end
+    @movies = @movies.contains(params[:q]) if params[:q].present?
+    @q = params[:q]
     @collections = Collection.where(user_id: current_user.id)
     @collection = Collection.new
     @movie  = Movie.find(params[:selected_movie]) if params[:selected_movie]

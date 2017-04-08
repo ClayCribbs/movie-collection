@@ -19,4 +19,6 @@ class Movie < ApplicationRecord
 
   mount_uploaders :photos, PhotoUploader
   serialize :photos
+
+  scope :contains, -> (query) { where("storyline ilike ? OR title ilike ?", "%#{query}%", "%#{query}%")}
 end

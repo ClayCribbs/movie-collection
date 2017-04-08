@@ -7,7 +7,7 @@
       .pull-right
         Rated:
         = @movie.rating
-      %h4= "#{@movie.title.titleize} (#{@movie.release_date.year})"
+      %h4= link_to "#{@movie.title.titleize} (#{@movie.release_date.year})", @movie
       %h5= @movie.storyline
       - if params[:collection_sort]
         = link_to "Remove from Collection", manage_collection_movie_path(@movie, type: "Remove", collection: Collection.find(params[:collection_sort])), method: :put

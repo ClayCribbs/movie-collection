@@ -15,10 +15,50 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'palette';
+@import 'font-awesome';
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 html, body, input, button, select, textarea, optgroup, option, form, fieldset, table, i, b, p, a, li, tr, td, h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
+}
+
+.search-bar-wrapper {
+  max-height: 45px;
+  margin-top: -20px;
+  padding: 5px 25px;
+  background-color: $color_search_bar;
+  border: solid 1px $color_border_dark;
+  .btn {
+    background-image: none;
+    background-color: white;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    height: 30px;
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none !important;
+    }
+  }
+  input {
+    color: black;
+    outline: none;
+    background-color: white !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+  #q {
+    height: 30px;
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+  }
 }
 
 html {
@@ -84,7 +124,7 @@ html {
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 100%;
-  margin-top: -20px;
+  margin-top: 0px;
   overflow: hidden;
   a {
     text-decoration: none;

@@ -1,12 +1,32 @@
 .container-fluid
-  %h1.text-center My Movies
   .row
-    .col-sm-8.col-sm-offset-2.text-center
-      .well.movie-index-wrapper
-        = image_tag @movie.poster, class: 'image-fit'
-  .row
-    %table.table
-      %tbody
-        - @movies.each do |m|
-          %tr
-            %td= link_to m.title, m
+    .col-sm-10.col-sm-offset-1
+      .row
+        .col-sm-4.text-center
+          = image_tag @movie.poster, class: 'image-fit'
+        .col-sm-8
+          .row
+            %h3= "#{@movie.title} (#{@movie.release_date.year})"
+            = "Rated #{@movie.rating}"
+            %br
+            %br
+            %p
+              = @movie.storyline
+              %br
+              %br
+          .row
+            .col-sm-4
+              %h4 Starring
+              - @movie.cast_members.each do |cast_member|
+                = cast_member.name
+                %br
+            .col-sm-4
+              %h4  Directed By
+              - @movie.directors.each do |director|
+                = director.name
+                %br
+            .col-sm-4
+              %h4 Written By
+              - @movie.writers.each do |writer|
+                = writer.name
+                %br

@@ -1,62 +1,76 @@
-.container-fluid
-  .row
-    .col-sm-3.tree-wrapper
-      %h2.text-center Collections
-      - if params[:collection_sort]
-        - if params[:selected_movie]
-          = link_to 'Back to All Movies', movies_path(selected_movie: params[:selected_movie])
-        - else
-          = link_to 'Back to All Movies', movies_path
-      %br
-      = render 'collections/form', locals: {collection: @collection}
-      %table.table
-        %tbody
-          - @collections.each do |collection|
-            %tr
-              %td= link_to collection.name.titleize, movies_path(collection_sort: collection)
-    .col-sm-9
-      - if params[:collection_sort]
-        %h3= Collection.find(params[:collection_sort]).name.titleize
-      - if params[:selected_movie].present?
-        - if @collection.movies.present?
-          = render 'movie_preview', locals: {id: params[:selected_movie], collection_sort: params[:collection_sort]}
-        - else
-          = render 'movie_preview', locals: {id: params[:selected_movie]}
-      .movie-index-wrapper
+= form_tag movies_path, method: :get do
+  .container-fluid
+    .row.search-bar-wrapper
+      .col-sm-9.col-sm-offset-3
         .row
-          - @movies.each_with_index do |movie, i|
-            .col-sm-2.movie-container
-              .row
-                - if params[:collection_sort]
-                  = link_to movies_path(selected_movie: movie.id, collection_sort: params[:collection_sort]) do
-                    .col-sm-12
-                      - if movie.poster.present?
-                        = image_tag movie.poster, class: 'image-fit'
-                      - else
-                        No Image Preview
-                    .col-sm-12
-                      %b= movie.title.titleize
-                - else
-                  = link_to movies_path(selected_movie: movie.id) do
-                    .col-sm-12
-                      - if movie.poster.present?
-                        = image_tag movie.poster, class: 'image-fit'
-                      - else
-                        No Image Preview
-                    .col-sm-12
-                      %b= movie.title.titleize
-            - if i != 0 && (i + 1) % 6 == 0
-              .row
+          .input-group
+            %span.input-group-btn
+              %button.btn.btn-default
+                .fa.fa-search{ type: 'button' }
+            = text_field_tag 'q', @q, placeholder: 'Search By Movie Title', class: 'form-control', aria: { describedby: 'search-addon' }
+    .row
+      .col-sm-3.tree-wrapper
+        %h2.text-center Collections
+        - if params[:collection_sort]
+          - if params[:selected_movie]
+            = link_to 'Back to All Movies', movies_path(selected_movie: params[:selected_movie])
+          - else
+            = link_to 'Back to All Movies', movies_path
+        %br
+        = render 'collections/form', locals: {collection: @collection}
+        %table.table
+          %tbody
+            - @collections.each do |collection|
+              %tr
+                %td= link_to collection.name.titleize, movies_path(collection_sort: collection)
+      .col-sm-9
+        %br
+        - if @q.present?
+          Displaying results for "#{@q}"
+          = link_to 'Show all', movies_path
 
-#newMovieModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newMovieModal", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog{:role => "document"}
-    .modal-content
-      .modal-header
-        %h5#newMovieModal.modal-title Modal title
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
-      .modal-body
-        Ooops... something went wrong.
-      .modal-footer
-        %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
-        %button.btn.btn-primary{:type => "button"} Save changes
+        - if params[:collection_sort]
+          %h3= Collection.find(params[:collection_sort]).name.titleize
+        - if params[:selected_movie].present?
+          - if @collection.movies.present?
+            = render 'movie_preview', locals: {id: params[:selected_movie], collection_sort: params[:collection_sort]}
+          - else
+            = render 'movie_preview', locals: {id: params[:selected_movie]}
+        .movie-index-wrapper
+          .row
+            - @movies.each_with_index do |movie, i|
+              .col-sm-2.movie-container
+                .row
+                  - if params[:collection_sort]
+                    = link_to movies_path(selected_movie: movie.id, collection_sort: params[:collection_sort]) do
+                      .col-sm-12
+                        - if movie.poster.present?
+                          = image_tag movie.poster, class: 'image-fit'
+                        - else
+                          No Image Preview
+                      .col-sm-12
+                        %b= movie.title.titleize
+                  - else
+                    = link_to movies_path(selected_movie: movie.id) do
+                      .col-sm-12
+                        - if movie.poster.present?
+                          = image_tag movie.poster, class: 'image-fit'
+                        - else
+                          No Image Preview
+                      .col-sm-12
+                        %b= movie.title.titleize
+              - if i != 0 && (i + 1) % 6 == 0
+                .row
+
+  #newMovieModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newMovieModal", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog{:role => "document"}
+      .modal-content
+        .modal-header
+          %h5#newMovieModal.modal-title Modal title
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+        .modal-body
+          Ooops... something went wrong.
+        .modal-footer
+          %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
+          %button.btn.btn-primary{:type => "button"} Save changes
