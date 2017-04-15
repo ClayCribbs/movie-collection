@@ -1,0 +1,17 @@
+.container-fluid
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h1= @cast_member.name
+      - if @cast_member.description
+        %h4= "Best Known for: #{@cast_member.description}"
+      - @movie_array.each do |movie|
+        = link_to movie.title, movie
+        %br
+        %br
+        %br
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h3 Movies:
+      - @cast_member.movies.each do |movie|
+        = link_to movie.title, movie
+        %br

@@ -17,6 +17,7 @@
           - else
             = link_to 'Back to All Movies', movies_path
         %br
+        %br
         = render 'collections/form', locals: {collection: @collection}
         %table.table
           %tbody
@@ -28,6 +29,9 @@
         - if @q.present?
           Displaying results for "#{@q}"
           = link_to 'Show all', movies_path
+        - if @results
+          - @results.each do |result|
+            = link_to result.title, new_movie_path(query: result.title) unless result.kind_of?(Array)
 
         - if params[:collection_sort]
           %h3= Collection.find(params[:collection_sort]).name.titleize
@@ -36,8 +40,8 @@
             = render 'movie_preview', locals: {id: params[:selected_movie], collection_sort: params[:collection_sort]}
           - else
             = render 'movie_preview', locals: {id: params[:selected_movie]}
-        .movie-index-wrapper
-          .row
+        .movie-index-wrapper.pre-scrollable
+          .row.movie-index-wrapper
             - @movies.each_with_index do |movie, i|
               .col-sm-2.movie-container
                 .row

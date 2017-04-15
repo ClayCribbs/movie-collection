@@ -14,7 +14,7 @@ class CollectionsController < ApplicationController
 
   # GET /collections/new
   def new
-    @collection = Collection.new
+    @collection = Collection.new(user_id: current_user.id)
   end
 
   # GET /collections/1/edit

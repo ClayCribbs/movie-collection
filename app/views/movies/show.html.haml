@@ -18,7 +18,7 @@
             .col-sm-4
               %h4 Starring
               - @movie.cast_members.each do |cast_member|
-                = cast_member.name
+                = link_to cast_member.name, cast_member
                 %br
             .col-sm-4
               %h4  Directed By

@@ -1,5 +1,6 @@
-= simple_form_for(@collection) do |f|
+= simple_form_for @collection, remote: true, authenticity_token: false do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :name, label: false, placeholder: 'Create A New Collection'
+    = f.submit

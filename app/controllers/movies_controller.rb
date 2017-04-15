@@ -9,10 +9,18 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all.order(rating: :desc)
     end
-    @movies = @movies.contains(params[:q]) if params[:q].present?
-    @q = params[:q]
+    if params[:q].present?
+      @q = params[:q]
+      if @movies.contains(@q).present?
+        @movies = @movies.contains(@q) 
+      else
+        @results = OMDB.search(@q)
+        @movies = @movies.contains(@q)
+      end
+    end
+    
     @collections = Collection.where(user_id: current_user.id)
-    @collection = Collection.new
+    @collection = Collection.new(user_id: current_user.id)
     @movie  = Movie.find(params[:selected_movie]) if params[:selected_movie]
   end
 
@@ -56,7 +64,13 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
-    get_movie_attributes(@movie)
+    unless @movie.destroyed?
+      if @movie.save
+        redirect_to root_url
+      else
+        redirect_to root_url
+      end
+    end
   end
 
   # PATCH/PUT /movies/1
@@ -74,34 +88,6 @@ class MoviesController < ApplicationController
   end
 
   private
-
-    def get_movie_attributes(movie)
-      title = movie.title
-      @omdb_movie = OMDB.title(title)
-      if @omdb_movie.response.to_s == 'True' && @omdb_movie.poster.length > 10
-        movie.runtime      = @omdb_movie.runtime
-        movie.rating       = @omdb_movie.imdb_rating
-        movie.vote_count   = @omdb_movie.imdb_votes
-        movie.poster       = @omdb_movie.poster
-        movie.storyline    = @omdb_movie.plot
-        movie.language     = @omdb_movie.language
-        movie.motion_picture_rated = @omdb_movie.rated
-        movie.country      = @omdb_movie.country
-        movie.title        = @omdb_movie.title
-        movie.release_date = ("1/1/#{@omdb_movie.year}").to_date
-        movie.directors    << Director.find_or_create_by(name: @omdb_movie.director)
-        movie.writers      << Writer.find_or_create_by(name: @omdb_movie.writer)
-        movie.categories   << Category.find_or_create_by(name: @omdb_movie.genre)
-        @omdb_movie.actors.split(', ').each do |actor|
-          movie.cast_members << CastMember.find_or_create_by(name: actor)
-        end
-        movie.save
-        redirect_to movies_path, notice: 'Movie was successfully created.' 
-      else
-        movie.delete
-        redirect_to new_movie_path(search_title: title), errors: 'Could not be created'
-      end
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
